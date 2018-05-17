@@ -5,9 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -22,7 +20,10 @@
     "@angular/router": "^6.0.0",
     "core-js": "^2.5.4",
     "rxjs": "^6.0.0",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "ng2-panzoom": "~0.9.1",
+    "font-awesome": "^4.7.0",
+    "screenfull": "^3.2.2"
   },
   "devDependencies": {
     "@angular/compiler-cli": "^6.0.0",
