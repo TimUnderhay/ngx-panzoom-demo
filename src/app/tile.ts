@@ -8,7 +8,7 @@ import { Content } from './content';
 <div class="thumbnail-container">
 
   <div>
-    <img [src]="'/assets/' + content.thumbnail" class="thumbnail" [attr.tileId]="content.id">
+    <img [src]="'assets/' + content.thumbnail" class="thumbnail" [attr.tileId]="content.id">
   </div>
 
 </div>
