@@ -1,6 +1,6 @@
 {
   "name": "ng2-panzoom-demo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Tim Underhay",
   "license": "MIT",
   "homepage": "https://github.com/kensingtontech/ng2-panzoom-demo",
@@ -26,11 +26,11 @@
     "@angular/platform-browser-dynamic": "^6.0.0",
     "@angular/router": "^6.0.0",
     "core-js": "^2.5.4",
-    "rxjs": "^6.0.0",
-    "zone.js": "^0.8.26",
-    "ng2-panzoom": "~0.9.1",
     "font-awesome": "^4.7.0",
-    "screenfull": "^3.2.2"
+    "ng2-panzoom": "^0.9.6",
+    "rxjs": "^6.0.0",
+    "screenfull": "^3.2.2",
+    "zone.js": "^0.8.26"
   },
   "devDependencies": {
     "@angular/compiler-cli": "^6.0.0",
