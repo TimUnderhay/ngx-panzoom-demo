@@ -14,7 +14,7 @@ interface Point {
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-<div #gridElement id="gridElement" style="position:absolute; left: 0; right: 0; bottom: 0; top: 0;">
+<div #gridElement class="lock-screen" id="gridElement">
 
   <div *ngIf="initialised" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;">
     <pan-zoom [config]="panzoomConfig">
@@ -87,6 +87,13 @@ interface Point {
     border-radius: 10px;
     padding: 3px;
   }
+
+  .lock-screen {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+    position: fixed;
+}
   `]
 })
 export class AppComponent implements OnInit, AfterViewInit {
@@ -110,24 +117,24 @@ export class AppComponent implements OnInit, AfterViewInit {
   public initialZoomWidth = this.canvasWidth;
   public initialised = false;
   public scale = this.getCssScale(this.panzoomConfig.initialZoomLevel);
+  private isMobile = false;
 
 
 
   ngOnInit(): void {
     this.renderer.setStyle(this.el.nativeElement.ownerDocument.body, 'background-color', 'black');
     this.renderer.setStyle(this.el.nativeElement.ownerDocument.body, 'overflow', 'hidden');
-    this.panzoomConfig.invertMouseWheel = true;
-    this.panzoomConfig.useHardwareAcceleration = true;
-    this.panzoomConfig.chromeUseTransform = true;
     this.panzoomConfig.zoomLevels = 10;
     this.panzoomConfig.scalePerZoomLevel = 2.0;
     this.panzoomConfig.zoomStepDuration = 0.2;
-    this.panzoomConfig.freeMouseWheel = true;
     this.panzoomConfig.freeMouseWheelFactor = 0.01;
     this.panzoomConfig.zoomToFitZoomLevelFactor = 0.9;
-    // this.panzoomConfig.haltSpeed = 1;
     this.apiSubscription = this.panzoomConfig.api.subscribe( (api: PanZoomAPI) => this.panZoomAPI = api );
     this.modelChangedSubscription = this.panzoomConfig.modelChanged.subscribe( (model: PanZoomModel) => this.onModelChanged(model) );
+    this.isMobile = this.isMobileDevice();
+    if (this.isMobile) {
+      this.contentItems = this.contentItems.slice(0, 13); //
+    }
   }
 
 
@@ -136,6 +143,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.resetZoomToFit();
     this.initialised = true;
     this.changeDetector.detectChanges();
+  }
+
+
+
+  private isMobileDevice(): boolean {
+    return (typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1);
   }
 
 
