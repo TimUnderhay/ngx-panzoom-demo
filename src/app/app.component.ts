@@ -1,9 +1,8 @@
-import { Component, OnInit, Renderer2, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PanZoomConfig, PanZoomAPI, PanZoomModel } from 'ng2-panzoom';
 import { Content } from './content';
 import { contentItems } from './contentItems';
-import { t } from '@angular/core/src/render3';
 
 interface Point {
   x: number;
@@ -96,7 +95,7 @@ interface Point {
 }
   `]
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor( private el: ElementRef,
                private renderer: Renderer2,
@@ -104,13 +103,18 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   @ViewChild('gridElement') private gridElement: ElementRef;
 
-  public panzoomConfig: PanZoomConfig = new PanZoomConfig;
+  public panzoomConfig: PanZoomConfig = new PanZoomConfig({
+    zoomLevels: 10,
+    scalePerZoomLevel: 2.0,
+    zoomStepDuration: 0.2,
+    freeMouseWheelFactor: 0.01,
+    zoomToFitZoomLevelFactor: 0.9,
+    dragMouseButton: 'left'
+  });
   private panZoomAPI: PanZoomAPI;
   private apiSubscription: Subscription;
   public panzoomModel: PanZoomModel;
   private modelChangedSubscription: Subscription;
-  private transitionZoomLevel = 3.9;
-  private previousFocusedElement: Node;
   public contentItems = contentItems;
   public canvasWidth = 2400;
   public initialZoomHeight: number = null; // set in resetZoomToFit()
@@ -124,16 +128,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.renderer.setStyle(this.el.nativeElement.ownerDocument.body, 'background-color', 'black');
     this.renderer.setStyle(this.el.nativeElement.ownerDocument.body, 'overflow', 'hidden');
-    this.panzoomConfig.zoomLevels = 10;
-    this.panzoomConfig.scalePerZoomLevel = 2.0;
-    this.panzoomConfig.zoomStepDuration = 0.2;
-    this.panzoomConfig.freeMouseWheelFactor = 0.01;
-    this.panzoomConfig.zoomToFitZoomLevelFactor = 0.9;
     this.apiSubscription = this.panzoomConfig.api.subscribe( (api: PanZoomAPI) => this.panZoomAPI = api );
     this.modelChangedSubscription = this.panzoomConfig.modelChanged.subscribe( (model: PanZoomModel) => this.onModelChanged(model) );
     this.isMobile = this.isMobileDevice();
     if (this.isMobile) {
-      this.contentItems = this.contentItems.slice(0, 13); //
+      this.contentItems = this.contentItems.slice(0, 13);
     }
   }
 
@@ -147,9 +146,17 @@ export class AppComponent implements OnInit, AfterViewInit {
 
 
 
+  ngOnDestroy(): void {
+    this.modelChangedSubscription.unsubscribe();
+    this.apiSubscription.unsubscribe();
+  }
+
+
+
   private isMobileDevice(): boolean {
     return (typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1);
   }
+
 
 
   onModelChanged(model: PanZoomModel): void {

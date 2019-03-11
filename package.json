@@ -1,6 +1,6 @@
 {
   "name": "ng2-panzoom-demo",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "author": "Tim Underhay",
   "license": "MIT",
   "homepage": "https://github.com/kensingtontech/ng2-panzoom-demo",
@@ -28,7 +28,7 @@
     "@angular/router": "^6.1.0",
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
-    "ng2-panzoom": "^2.0.0",
+    "ng2-panzoom": "^2.1.0",
     "rxjs": "^6.0.0",
     "screenfull": "^3.2.2",
     "zone.js": "^0.8.26"
