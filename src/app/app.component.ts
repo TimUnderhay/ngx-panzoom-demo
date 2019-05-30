@@ -101,7 +101,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
                private renderer: Renderer2,
                private changeDetector: ChangeDetectorRef ) { }
 
-  @ViewChild('gridElement') private gridElement: ElementRef;
+  @ViewChild('gridElement', { static: true }) private gridElement: ElementRef;
 
   public panzoomConfig: PanZoomConfig = new PanZoomConfig({
     zoomLevels: 10,
