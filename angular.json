@@ -25,10 +25,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/screenfull/dist/screenfull.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {

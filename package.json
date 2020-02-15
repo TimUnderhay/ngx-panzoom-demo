@@ -1,6 +1,6 @@
 {
   "name": "ng2-panzoom-demo",
-  "version": "2.2.1",
+  "version": "8.0.0",
   "author": "Tim Underhay",
   "license": "MIT",
   "homepage": "https://github.com/kensingtontech/ng2-panzoom-demo",
@@ -15,7 +15,7 @@
     "lint": "ng lint",
     "buildpages": "cp src/polyfills_build.ts src/polyfills.ts && ng build --prod --base-href \"https://kensingtontech.github.io/ng2-panzoom-demo/\" --output-path dist/ && cp src/polyfills_dev.ts src/polyfills.ts && sudo ngh"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/common": "^8.0.0",
     "@angular/compiler": "^8.0.0",
@@ -24,20 +24,21 @@
     "@angular/platform-browser-dynamic": "^8.0.0",
     "core-js": "^3.1.3",
     "font-awesome": "^4.7.0",
+    "jquery": "^3.4.1",
     "ng2-panzoom": "^2.2.1",
     "rxjs": "^6.5.2",
-    "screenfull": "^4.2.0",
+    "screenfull": "^5.0.2",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.800.2",
-    "@angular/cli": "~8.0.2",
+    "@angular/cli": "~8.3.25",
     "@angular/compiler-cli": "^8.0.0",
     "@angular/language-service": "^8.0.0",
     "@types/jasmine": "~3.3.13",
     "@types/jasminewd2": "~2.0.3",
-    "@types/node": "~12.0.3",
+    "@types/node": "^12.0.12",
     "codelyzer": "^5.0.1",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",

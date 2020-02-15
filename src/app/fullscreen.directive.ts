@@ -1,6 +1,5 @@
 import { Directive, HostListener } from '@angular/core';
-declare var screenfull;
-declare var log;
+import * as screenfull from 'screenfull';
 
 
 @Directive({
@@ -10,7 +9,7 @@ declare var log;
 export class ToggleFullscreenDirective {
 
   @HostListener('click') onClick() {
-    if (screenfull.enabled) {
+    if (screenfull.isEnabled) {
       screenfull.toggle();
     }
   }
