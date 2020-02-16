@@ -13,7 +13,7 @@
     "start": "ng serve",
     "build": "ng build",
     "lint": "ng lint",
-    "buildpages": "cp src/polyfills_build.ts src/polyfills.ts && ng build --prod --base-href \"https://kensingtontech.github.io/ng2-panzoom-demo/\" --output-path dist/ && cp src/polyfills_dev.ts src/polyfills.ts && sudo ngh"
+    "buildpages": "ng build --prod --aot --base-href \"https://kensingtontech.github.io/ng2-panzoom-demo/\" --output-path dist/ && ngh"
   },
   "private": false,
   "dependencies": {
@@ -25,7 +25,7 @@
     "core-js": "^3.1.3",
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
-    "ng2-panzoom": "^2.2.1",
+    "ng2-panzoom": "^8.0.0",
     "rxjs": "^6.5.2",
     "screenfull": "^5.0.2",
     "tslib": "^1.9.0",
