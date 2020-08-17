@@ -1,61 +1,276 @@
-<div #gridElement class="lock-screen" id="gridElement">
+<div
+  #gridElement
+  class="lock-screen"
+  id="gridElement">
 
-  <div *ngIf="initialised" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;">
-    <pan-zoom [config]="panzoomConfig">
-      <div class="bg noselect items" style="position: relative;" [style.width.px]="2400">
-        <tile *ngFor="let item of contentItems" [content]="item"></tile>
+    <div
+      *ngIf="initialised"
+      style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;">
+
+      <pan-zoom [config]="panzoomConfig">
+
+        <div
+          class="bg noselect items"
+          style="position: relative;"
+          [style.width.px]="2400">
+
+            <tile
+              *ngFor="let item of contentItems"
+              [content]="item">
+            </tile>
+
+        </div>
+
+      </pan-zoom>
+
+    </div>
+
+    <div class="noselect button-box">
+
+      <!-- Top button row -->
+      <div class="button-row">
+
+        <div
+          toggleFullscreen
+          class="icon fa fa-desktop fa-2x fa-fw"
+          pTooltip="Toggle full screen"
+          [showDelay]="500">
+        </div>
+
+        <div
+          (click)="onResetViewClicked()"
+          class="icon icon-add-margin fa fa-home fa-2x fa-fw"
+          [pTooltip]="'Reset view to initial state:\n\npanZoomAPI.resetView()'"
+          [showDelay]="500">
+        </div>
+
+        <div
+          (click)="onZoomOutClicked()"
+          class="icon icon-add-margin fa fa-search-minus fa-2x fa-fw"
+          [pTooltip]="'Zoom out one zoomLevel:\n\npanZoomAPI.zoomOut()'"
+          [showDelay]="500">
+        </div>
+
+        <div
+          (click)="onZoomInClicked()"
+          class="icon icon-add-margin fa fa-search-plus fa-2x fa-fw"
+          [pTooltip]="'Zoom in one zoomLevel:\n\npanZoomAPI.zoomIn()'"
+          [showDelay]="500">
+        </div>
+
+        <div
+          (click)="onPanToPointClicked()"
+          class="icon icon-add-margin fa fa-bullseye fa-2x fa-fw"
+          [pTooltip]="'Pan to a point. In this case, the lower right-hand-corner:\n\npanZoomAPI.panToPoint( { x: 2400, y: 4270 } )'"
+          [showDelay]="500">
+        </div>
+
       </div>
-    </pan-zoom>
-  </div>
 
-  <div class="noselect" style="position: absolute; top: 20px; height: 230px; left: 10px; padding: 5px; background-color: rgba(0,0,0,0.8); font-size: 12px; border-radius:10px; width: 200px;">
+      <!-- Middle button row -->
+      <div
+        class="button-row"
+        style="margin-top: 1em;">
 
-    <!-- top buttons -->
-    <div style="position: absolute; top: 10px">
-      <div style="position: absolute; left: 0px;" toggleFullscreen class="icon fa fa-desktop fa-2x fa-fw"></div>
-      <div style="position: absolute; left: 40px;" (click)="resetView()" class="icon fa fa-home fa-2x fa-fw"></div>
-      <div style="position: absolute; left: 80px;" (click)="zoomOut()" class="icon fa fa-search-minus fa-2x fa-fw"></div>
-      <div style="position: absolute; left: 120px;" (click)="zoomIn()" class="icon fa fa-search-plus fa-2x fa-fw"></div>
-      <div style="position: absolute; left: 160px;" (click)="panToPoint()" class="icon fa fa-bullseye fa-2x fa-fw"></div>
+          <div
+            (click)="onCenterContentClicked()"
+            class="icon fa fa-align-center fa-2x fa-fw"
+            [pTooltip]="'Pan to the centre of the content\n\npanZoomAPI.centerContent()'"
+            [showDelay]="500">
+          </div>
+
+          <div
+            (click)="onCenterTopLeftClicked()"
+            class="icon icon-add-margin fa-2x fa-fw"
+            [pTooltip]="'Pan to the top-left corner of the content\n\npanZoomAPI.centerTopLeft()'"
+            [showDelay]="500">
+
+              <div
+                style="transform: rotate(-45deg);"
+                class="fa fa-arrow-up">
+              </div>
+
+          </div>
+
+          <div
+            (click)="onCenterBottomLeftClicked()"
+            class="icon icon-add-margin fa-2x fa-fw"
+            [pTooltip]="'Pan to the bottom-left corner of the content:\n\npanZoomAPI.centerBottomLeft()'"
+            [showDelay]="500">
+
+            <div
+              style="transform: rotate(-45deg);"
+              class="fa fa-arrow-left">
+            </div>
+
+          </div>
+
+          <div
+            (click)="onCenterTopRightClicked()"
+            class="icon icon-add-margin fa-2x fa-fw"
+            [pTooltip]="'Pan to the top-right corner of the content:\n\npanZoomAPI.centerTopRight()'"
+            [showDelay]="500">
+
+            <div
+              style="transform: rotate(45deg);"
+              class="fa fa-arrow-up">
+            </div>
+
+          </div>
+
+          <div
+            (click)="onCenterBottomRightClicked()"
+            class="icon icon-add-margin fa-2x fa-fw"
+            [pTooltip]="'Pan to the bottom-right corner of the content:\n\npanZoomAPI.centerBottomRight()'"
+            [showDelay]="500">
+
+            <div
+              style="transform: rotate(45deg);"
+              class="fa fa-arrow-right">
+            </div>
+
+          </div>
+
+      </div>
+
+      <!-- Lower button row -->
+      <div
+      class="button-row button-row-justify-left"
+      style="margin-top: 1em;">
+
+        <div
+          (click)="onCenterXClicked()"
+          class="icon letter-icon fa-2x fa-fw"
+          [pTooltip]="'Pan to the centre of the X axis\n\npanZoomAPI.centerX()'"
+          [showDelay]="500">
+            X
+        </div>
+
+        <div
+          (click)="onCenterYClicked()"
+          class="icon icon-letter icon-add-margin fa-2x fa-fw"
+          [pTooltip]="'Pan to the centre of the Y axis\n\npanZoomAPI.centerY()'"
+          [showDelay]="500">
+            Y
+        </div>
+      
+      </div>
+
+      <!-- panDelta() buttons -->
+      <div class="d-pad-row">
+
+        <div>
+
+          <div
+            class="d-pad-text"
+            style="position: absolute; left: 80px; top: 0; width: 100px;">
+              100px
+          </div>
+
+          <div
+            style="position: absolute; left: 0; top: 20px"
+            (click)="onPanLeft100Clicked()"
+            class="icon fa fa-arrow-left fa-2x fa-fw"
+            [pTooltip]="'Pan left by 100 pixels:\n\npanZoomAPI.panDelta( { x: -100, y: 0 } )'"
+            [showDelay]="500">
+          </div>
+  
+          <div
+            style="position: absolute; left: 40px;"
+            (click)="onPanUp100Clicked()"
+            class="icon fa fa-arrow-up fa-2x fa-fw"
+            [pTooltip]="'Pan up by 100 pixels:\n\npanZoomAPI.panDelta( { x: 0, y: -100 } )'"
+            [showDelay]="500">
+          </div>
+  
+          <div
+            style="position: absolute; left: 80px; top: 20px"
+            class="icon fa fa-arrow-right fa-2x fa-fw"
+            (click)="onPanRight100Clicked()"
+            [pTooltip]="'Pan left by 100 pixels:\n\npanZoomAPI.panDelta( { x: 100, y: 0 } )'"
+            [showDelay]="500">
+          </div>
+
+          <div
+            style="position: absolute; left: 40px; top: 40px"
+            (click)="onPanDown100Clicked()"
+            class="icon fa fa-arrow-down fa-2x fa-fw"
+            [pTooltip]="'Pan up by 100 pixels:\n\npanZoomAPI.panDelta( { x: 0, y: 100 } )'"
+            [showDelay]="500">
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- panDeltaPercent() buttons -->
+      <div class="d-pad-row">
+
+          <div>
+
+            <div
+              class="d-pad-text"
+              style="position: absolute; left: 85px; top: 0; width: 100px;">
+                20%
+            </div>
+    
+            <div
+              style="position: absolute; left: 0; top: 20px"
+              (click)="onPanLeftPercentClicked()"
+              class="icon fa fa-arrow-left fa-2x fa-fw"
+              [pTooltip]="'Pan left by 20 per cent:\n\npanZoomAPI.panDeltaPercent( { x: -20, y: 0 } )'"
+              [showDelay]="500">
+            </div>
+
+            <div
+              style="position: absolute; left: 40px;"
+              (click)="onPanUpPercentClicked()"
+              class="icon fa fa-arrow-up fa-2x fa-fw"
+              [pTooltip]="'Pan up by 20 per cent:\n\npanZoomAPI.panDeltaPercent( { x: 0, y: -20 } )'"
+              [showDelay]="500">
+            </div>
+    
+            <div
+              style="position: absolute; left: 80px; top: 20px"
+              (click)="onPanRightPercentClicked()"
+              class="icon fa fa-arrow-right fa-2x fa-fw"
+              [pTooltip]="'Pan right by 20 per cent:\n\npanZoomAPI.panDeltaPercent( { x: 20, y: 0 } )'"
+              [showDelay]="500">
+            </div>
+
+            <div
+              style="position: absolute; left: 40px; top: 40px"
+              (click)="onPanDownPercentClicked()"
+              class="icon fa fa-arrow-down fa-2x fa-fw"
+              [pTooltip]="'Pan down by 20 per cent:\n\npanZoomAPI.panDeltaPercent( { x: 0, y: 20 } )'"
+              [showDelay]="500">
+            </div>
+
+          </div>
+      </div>
+
     </div>
 
-    <!-- panDelta() buttons -->
-    <div style="position: absolute; top: 60px; left: 30px;">
-      <div style="position: absolute; left: 5px; top: 0; color: red; width: 100px;" (click)="panUp100()">100px</div>
-      <div style="position: absolute; left: 80px; color: red; width: 100px;" (click)="panUp100()">panDelta()</div>
-
-      <div style="position: absolute; left: 40px;" (click)="panUp100()" class="icon fa fa-arrow-up fa-2x fa-fw"></div>
-      <div style="position: absolute; left: 40px; top: 40px" (click)="panDown100()" class="icon fa fa-arrow-down fa-2x fa-fw"></div>
-      <div style="position: absolute; left: 0; top: 20px" (click)="panLeft100()" class="icon fa fa-arrow-left fa-2x fa-fw"></div>
-      <div style="position: absolute; left: 80px; top: 20px" (click)="panRight100()" class="icon fa fa-arrow-right fa-2x fa-fw"></div>
-
-    </div>
-
-    <!-- panDeltaPercent() buttons -->
-    <div style="position: absolute; top: 160px; left: 30px;">
-      <div style="position: absolute; left: 15px; top: 0; color: red; width: 100px;" (click)="panUp100()">20%</div>
-      <div style="position: absolute; left: 80px; color: red; width: 100px;" (click)="panUp100()">panDeltaPercent()</div>
 
 
-      <div style="position: absolute; left: 40px;" (click)="panUpPercent()" class="icon fa fa-arrow-up fa-2x fa-fw"></div>
-      <div style="position: absolute; left: 40px; top: 40px" (click)="panDownPercent()" class="icon fa fa-arrow-down fa-2x fa-fw"></div>
-      <div style="position: absolute; left: 0; top: 20px" (click)="panLeftPercent()" class="icon fa fa-arrow-left fa-2x fa-fw"></div>
-      <div style="position: absolute; left: 80px; top: 20px" (click)="panRightPercent()" class="icon fa fa-arrow-right fa-2x fa-fw"></div>
+    <!-- PanZoomModel Box -->
+    <div
+      *ngIf="panzoomModel"
+      class="noselect panzoom-model-box">
 
-    </div>
+        <h3 style="margin-top: 0;">
+          PanZoomModel
+        </h3>
 
-  </div>
+        <div>
+          <strong>pan.x:</strong> {{panzoomModel.pan.x | rounder:0}}<br>
+          <strong>pan.y:</strong> {{panzoomModel.pan.y | rounder:0}}<br>
+          <strong>zoomLevel:</strong> {{panzoomModel.zoomLevel | rounder:3}}<br>
+          <strong>isPanning:</strong> {{panzoomModel.isPanning}}<br>
+          ------------------------------<br>
+          Calculated Scale: {{scale | rounder:4 }}
+        </div>
 
-  <div *ngIf="panzoomModel" class="noselect" style="position: absolute; bottom: 10px; left: 10px; width: 200px; padding: 5px; background-color: rgba(255,255,255,0.9); font-size: 12px; border-radius:10px;">
-    <span style="font-weight: bold;">PanZoomModel</span>
-    <div>
-      pan.x: {{panzoomModel.pan.x}}<br>
-      pan.y: {{panzoomModel.pan.y}}<br>
-      zoomLevel: {{panzoomModel.zoomLevel}}<br>
-      isPanning: {{panzoomModel.isPanning}}<br>
-      ---------------------------<br>
-      calculated scale: {{scale}}
-    </div>
-  </div>
+      </div>
 
 <div>

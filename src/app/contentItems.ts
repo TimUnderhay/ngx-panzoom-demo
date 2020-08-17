@@ -646,8 +646,5 @@ export const contentItems: Content[] = [
   { id: 670, contentFile: '432-107-0_2.landscape-1461766567-sherlock-filming-london.jpg', thumbnail: 'thumbnail_432-107-0_2.landscape-1461766567-sherlock-filming-london.jpg'},
   { id: 671, contentFile: '452-107-0_1.sherlock-holmes-original.jpg', thumbnail: 'thumbnail_452-107-0_1.sherlock-holmes-original.jpg'},
   { id: 672, contentFile: '623-107-0_5.Napoleon-Dynamite-napoleon-dynamite-17827081-1280-720.jpg', thumbnail: 'thumbnail_623-107-0_5.Napoleon-Dynamite-napoleon-dynamite-17827081-1280-720.jpg'},
-  { id: 673, contentFile: '269-107-0_1.paris1.jpg', thumbnail: 'thumbnail_269-107-0_1.paris1.jpg'},
-  { id: 674, contentFile: '2225-107-0_2.First-Contact-star-trek-the-next-generation-6753914-1285-1812.jpg', thumbnail: 'thumbnail_2225-107-0_2.First-Contact-star-trek-the-next-generation-6753914-1285-1812.jpg'},
-  { id: 676, contentFile: '400-107-0_1.iStock_000018868158XSmall.jpg', thumbnail: 'thumbnail_400-107-0_1.iStock_000018868158XSmall.jpg'},
-  { id: 677, contentFile: '76-107-0_1.Historic-London-City.jpg', thumbnail: 'thumbnail_76-107-0_1.Historic-London-City.jpg'}
+  { id: 673, contentFile: '269-107-0_1.paris1.jpg', thumbnail: 'thumbnail_269-107-0_1.paris1.jpg'}
 ];

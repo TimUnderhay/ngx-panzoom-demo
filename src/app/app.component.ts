@@ -12,26 +12,7 @@ interface Point {
 @Component({
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './app.component.html',
-  styles: [`
-    tile {
-      display: inline-block;
-    }
-
-    .icon {
-      background-color: rgb(75,173,243);
-      color: white;
-      border-radius: 10px;
-      padding: 3px;
-    }
-
-    .lock-screen {
-      height: 100%;
-      overflow: hidden;
-      width: 100%;
-      position: fixed;
-    }
-  `]
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -41,7 +22,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('gridElement', { static: true }) private gridElement: ElementRef;
 
-  public panzoomConfig: PanZoomConfig = new PanZoomConfig({
+  panzoomConfig: PanZoomConfig = new PanZoomConfig({
     zoomLevels: 10,
     scalePerZoomLevel: 2.0,
     zoomStepDuration: 0.2,
@@ -51,14 +32,14 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   });
   private panZoomAPI: PanZoomAPI;
   private apiSubscription: Subscription;
-  public panzoomModel: PanZoomModel;
+  panzoomModel: PanZoomModel;
   private modelChangedSubscription: Subscription;
-  public contentItems = contentItems;
-  public canvasWidth = 2400;
-  public initialZoomHeight: number = null; // set in resetZoomToFit()
-  public initialZoomWidth = this.canvasWidth;
-  public initialised = false;
-  public scale = this.getCssScale(this.panzoomConfig.initialZoomLevel);
+  contentItems = contentItems;
+  canvasWidth = 2400;
+  initialZoomHeight: number = null; // set in resetZoomToFit()
+  initialZoomWidth = this.canvasWidth;
+  initialised = false;
+  scale = this.getCssScale(this.panzoomConfig.initialZoomLevel);
   private isMobile = false;
 
 
@@ -107,7 +88,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   private getCssScale(zoomLevel: any): number {
-    // log.debug('PanZoomComponent: getCssScale()');
     return Math.pow(this.panzoomConfig.scalePerZoomLevel, zoomLevel - this.panzoomConfig.neutralZoomLevel);
   }
 
@@ -115,89 +95,128 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   resetZoomToFit(): void {
     let height = this.gridElement.nativeElement.clientHeight;
-    let width = this.gridElement.nativeElement.clientWidth;
+    const width = this.gridElement.nativeElement.clientWidth;
     height = this.canvasWidth * height / width;
-    this.panzoomConfig.initialZoomToFit = { x: 0, y: 0, width: this.canvasWidth, height: height };
+    this.panzoomConfig.initialZoomToFit = {
+      x: 0,
+      y: 0,
+      width: this.canvasWidth,
+      height
+    };
     this.initialZoomHeight = height;
   }
 
 
 
-  public zoomIn(): void {
+  onZoomInClicked(): void {
     this.panZoomAPI.zoomIn();
   }
 
 
 
-  public zoomOut(): void {
+  onZoomOutClicked(): void {
     this.panZoomAPI.zoomOut();
   }
 
 
 
-  public resetView(): void {
+  onResetViewClicked(): void {
     this.panZoomAPI.resetView();
   }
 
 
 
-  public panLeft100(): void {
+  onPanLeft100Clicked(): void {
     this.panZoomAPI.panDelta( { x: -100, y: 0 } );
   }
 
 
 
-  public panRight100(): void {
+  onPanRight100Clicked(): void {
     this.panZoomAPI.panDelta( { x: 100, y: 0 } );
   }
 
 
 
-  public panUp100(): void {
+  onPanUp100Clicked(): void {
     this.panZoomAPI.panDelta( { x: 0, y: -100 } );
   }
 
 
 
-  public panDown100(): void {
+  onPanDown100Clicked(): void {
     this.panZoomAPI.panDelta( { x: 0, y: 100 } );
   }
 
 
 
-  public panLeftPercent(): void {
+  onPanLeftPercentClicked(): void {
     this.panZoomAPI.panDeltaPercent( { x: -20, y: 0 } );
   }
 
 
 
-  public panRightPercent(): void {
+  onPanRightPercentClicked(): void {
     this.panZoomAPI.panDeltaPercent( { x: 20, y: 0 } );
   }
 
 
 
-  public panUpPercent(): void {
+  onPanUpPercentClicked(): void {
     this.panZoomAPI.panDeltaPercent( { x: 0, y: -20 } );
   }
 
 
 
-  public panDownPercent(): void {
+  onPanDownPercentClicked(): void {
     this.panZoomAPI.panDeltaPercent( { x: 0, y: 20 } );
   }
 
 
 
-  public panToPoint(): void {
-    // this.panZoomAPI.panToPoint( { x: 0, y: 0 } );
+  onPanToPointClicked(): void {
     this.panZoomAPI.panToPoint( { x: 2400, y: 4270 } );
-    // this.panZoomAPI.panToPoint( { x: 2400, y: 0 } );
-    // this.panZoomAPI.panToPoint( { x: 0, y: 4270 } );
+  }
+
+
+  onCenterContentClicked(): void {
+    this.panZoomAPI.centerContent();
   }
 
 
 
+  onCenterXClicked(): void {
+    this.panZoomAPI.centerX();
+  }
 
+
+
+  onCenterYClicked(): void {
+    this.panZoomAPI.centerY();
+  }
+
+
+
+  onCenterTopLeftClicked(): void {
+    this.panZoomAPI.centerTopLeft();
+  }
+
+
+
+  onCenterBottomLeftClicked(): void {
+    this.panZoomAPI.centerBottomLeft();
+  }
+
+
+
+  onCenterTopRightClicked(): void {
+    this.panZoomAPI.centerTopRight();
+  }
+
+
+
+  onCenterBottomRightClicked(): void {
+    this.panZoomAPI.centerBottomRight();
+  }
 
 }
