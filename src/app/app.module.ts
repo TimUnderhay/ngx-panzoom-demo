@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { TileComponent } from './tile';
 import { ToggleFullscreenDirective } from './fullscreen.directive';
 import { RounderPipe } from './rounder.pipe';
-import { Ng2PanZoomModule } from 'ng2-panzoom';
+import { NgxPanZoomModule } from 'ngx-panzoom';
 import { AppComponent } from './app.component';
 
 // Third-party modules
@@ -18,7 +18,7 @@ import { TooltipModule } from 'primeng/tooltip';
   ],
   imports: [
     BrowserModule,
-    Ng2PanZoomModule,
+    NgxPanZoomModule,
     TooltipModule
   ],
   providers: [],

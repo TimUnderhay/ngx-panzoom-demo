@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng2-panzoom-demo": {
+    "ngx-panzoom-demo": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -18,7 +18,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "aot": true,
-            "outputPath": "dist/ng2-panzoom-demo",
+            "outputPath": "dist/ngx-panzoom-demo",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -69,19 +69,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ng2-panzoom-demo:build",
+            "browserTarget": "ngx-panzoom-demo:build",
             "host": "0.0.0.0"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ng2-panzoom-demo:build:production"
+              "browserTarget": "ngx-panzoom-demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng2-panzoom-demo:build"
+            "browserTarget": "ngx-panzoom-demo:build"
           }
         },
         "lint": {
@@ -103,5 +103,5 @@
       }
     }
   },
-  "defaultProject": "ng2-panzoom-demo"
+  "defaultProject": "ngx-panzoom-demo"
 }

@@ -1,5 +1,5 @@
-# Ng2PanzoomDemo
+# NgxPanzoomDemo
 
-This demonstrates the ng2-panzoom module for Angular.  This module can be found [here](https://github.com/kensingtontech/ng2-panzoom).
+This demonstrates the ngx-panzoom module for Angular.  This module can be found [here](https://github.com/kensingtontech/ngx-panzoom).
 
-View the demo [here](https://kensingtontech.github.io/ng2-panzoom-demo/).
+View the demo [here](https://kensingtontech.github.io/ngx-panzoom-demo/).

@@ -39,4 +39,4 @@ testem.log
 Thumbs.db
 
 # Test libraries
-/ng2-panzoom-*.tgz
+/ngx-panzoom-*.tgz

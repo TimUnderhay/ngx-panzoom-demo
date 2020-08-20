@@ -1,6 +1,6 @@
 import { Component, OnInit, Renderer2, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { PanZoomConfig, PanZoomAPI, PanZoomModel } from 'ng2-panzoom';
+import { PanZoomConfig, PanZoomAPI, PanZoomModel, PanZoomConfigOptions } from 'ngx-panzoom';
 import { contentItems } from './contentItems';
 import * as utils from './utils';
 
@@ -22,14 +22,15 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('gridElement', { static: true }) private gridElement: ElementRef;
 
-  panzoomConfig: PanZoomConfig = new PanZoomConfig({
+  private panZoomConfigOptions: PanZoomConfigOptions = {
     zoomLevels: 10,
     scalePerZoomLevel: 2.0,
     zoomStepDuration: 0.2,
     freeMouseWheelFactor: 0.01,
     zoomToFitZoomLevelFactor: 0.9,
     dragMouseButton: 'left'
-  });
+  };
+  panzoomConfig: PanZoomConfig = new PanZoomConfig(this.panZoomConfigOptions);
   private panZoomAPI: PanZoomAPI;
   private apiSubscription: Subscription;
   panzoomModel: PanZoomModel;
