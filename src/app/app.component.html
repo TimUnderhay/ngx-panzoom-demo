@@ -47,14 +47,14 @@
         <div
           (click)="onZoomOutClicked()"
           class="icon icon-add-margin fa fa-search-minus fa-2x fa-fw"
-          [pTooltip]="'Zoom out one zoomLevel:\n\npanZoomAPI.zoomOut()'"
+          [pTooltip]="'Zoom out one zoomLevel:\n\npanZoomAPI.zoomOut(\'viewCenter\')'"
           [showDelay]="500">
         </div>
 
         <div
           (click)="onZoomInClicked()"
           class="icon icon-add-margin fa fa-search-plus fa-2x fa-fw"
-          [pTooltip]="'Zoom in one zoomLevel:\n\npanZoomAPI.zoomIn()'"
+          [pTooltip]="'Zoom in one zoomLevel:\n\npanZoomAPI.zoomIn(\'viewCenter\')'"
           [showDelay]="500">
         </div>
 

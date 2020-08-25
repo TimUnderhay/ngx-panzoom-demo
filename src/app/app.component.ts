@@ -110,13 +110,13 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   onZoomInClicked(): void {
-    this.panZoomAPI.zoomIn();
+    this.panZoomAPI.zoomIn('viewCenter');
   }
 
 
 
   onZoomOutClicked(): void {
-    this.panZoomAPI.zoomOut();
+    this.panZoomAPI.zoomOut('viewCenter');
   }
 
 
