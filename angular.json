@@ -3,7 +3,10 @@
   "version": 1,
   "newProjectRoot": "projects",
   "cli": {
-    "packageManager": "pnpm"
+    "packageManager": "pnpm",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   },
   "projects": {
     "ngx-panzoom-demo": {
@@ -95,9 +98,17 @@
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {}
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
-  },
-  "defaultProject": "ngx-panzoom-demo"
+  }
 }
