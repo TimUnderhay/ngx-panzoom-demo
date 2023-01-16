@@ -10,6 +10,7 @@ specifiers:
   '@angular-eslint/eslint-plugin-template': 14.4.0
   '@angular-eslint/schematics': 14.4.0
   '@angular-eslint/template-parser': 14.4.0
+  '@angular/animations': ^14.0.0
   '@angular/cli': ^14.2.10
   '@angular/common': ^14.2.12
   '@angular/compiler': ^14.2.12
@@ -39,7 +40,7 @@ specifiers:
   karma-coverage-istanbul-reporter: ~3.0.2
   karma-jasmine: ~4.0.0
   karma-jasmine-html-reporter: ^1.5.0
-  ngx-panzoom: ^13.0.0
+  ngx-panzoom: ^14.0.0
   primeicons: ^6.0.1
   primeng: ^14.2.3
   protractor: ~7.0.0
@@ -50,15 +51,16 @@ specifiers:
   zone.js: ~0.11.4
 
 dependencies:
+  '@angular/animations': 14.2.12_@angular+core@14.2.12
   '@angular/common': 14.2.12_eate4fi4sziegvmuy7mn7envlm
   '@angular/compiler': 14.2.12_@angular+core@14.2.12
   '@angular/core': 14.2.12_rxjs@7.4.0+zone.js@0.11.4
-  '@angular/platform-browser': 14.2.12_yt6vhfaqrvibeodb6jj2rnj7lm
+  '@angular/platform-browser': 14.2.12_dax2jypo47bpgiczdvqsh7iq24
   '@angular/platform-browser-dynamic': 14.2.12_6cqhozsvdfqcnce26piw2go6r4
   '@angular/router': 14.2.12_ofmcmhk67hpcamdgxgaaineb7u
   core-js: 3.18.2
   font-awesome: 4.7.0
-  ngx-panzoom: 13.0.0_yt6vhfaqrvibeodb6jj2rnj7lm
+  ngx-panzoom: 14.0.0_yt6vhfaqrvibeodb6jj2rnj7lm
   primeng: 14.2.3_fjkhpte5efx3ibcsb6l66sfjgm
   rxjs: 7.4.0
   screenfull: 6.0.0
@@ -365,6 +367,15 @@ packages:
       - supports-color
     dev: true
 
+  /@angular/animations/14.2.12_@angular+core@14.2.12:
+    resolution: {integrity: sha512-gwdnFZkvVUr+enUNfhfCGRGGqNHn1+vTA81apLfHYhJxgjiLUtETc4KTOrQevtDm022pEd+LSrvr8r+7ag+jkw==}
+    engines: {node: ^14.15.0 || >=16.10.0}
+    peerDependencies:
+      '@angular/core': 14.2.12
+    dependencies:
+      '@angular/core': 14.2.12_rxjs@7.4.0+zone.js@0.11.4
+      tslib: 2.4.0
+
   /@angular/cli/14.2.10:
     resolution: {integrity: sha512-gX9sAKOwq4lKdPWeABB7TzKDHdjQXvkUU8NmPJA6mEAVXvm3lhQtFvHDalZstwK8au2LY0LaXTcEtcKYOt3AXQ==}
     engines: {node: ^14.15.0 || >=16.10.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
@@ -465,7 +476,7 @@ packages:
     dependencies:
       '@angular/common': 14.2.12_eate4fi4sziegvmuy7mn7envlm
       '@angular/core': 14.2.12_rxjs@7.4.0+zone.js@0.11.4
-      '@angular/platform-browser': 14.2.12_yt6vhfaqrvibeodb6jj2rnj7lm
+      '@angular/platform-browser': 14.2.12_dax2jypo47bpgiczdvqsh7iq24
       rxjs: 7.4.0
       tslib: 2.4.0
 
@@ -486,11 +497,11 @@ packages:
       '@angular/common': 14.2.12_eate4fi4sziegvmuy7mn7envlm
       '@angular/compiler': 14.2.12_@angular+core@14.2.12
       '@angular/core': 14.2.12_rxjs@7.4.0+zone.js@0.11.4
-      '@angular/platform-browser': 14.2.12_yt6vhfaqrvibeodb6jj2rnj7lm
+      '@angular/platform-browser': 14.2.12_dax2jypo47bpgiczdvqsh7iq24
       tslib: 2.4.0
     dev: false
 
-  /@angular/platform-browser/14.2.12_yt6vhfaqrvibeodb6jj2rnj7lm:
+  /@angular/platform-browser/14.2.12_dax2jypo47bpgiczdvqsh7iq24:
     resolution: {integrity: sha512-vOarWym8ucl1gjYWCzdwyBha+MTvL381mvTTUu8aUx6nVhHFjv4bvpjlZnZgojecqUPyxOwmPLLHvCZPJVHZYg==}
     engines: {node: ^14.15.0 || >=16.10.0}
     peerDependencies:
@@ -501,6 +512,7 @@ packages:
       '@angular/animations':
         optional: true
     dependencies:
+      '@angular/animations': 14.2.12_@angular+core@14.2.12
       '@angular/common': 14.2.12_eate4fi4sziegvmuy7mn7envlm
       '@angular/core': 14.2.12_rxjs@7.4.0+zone.js@0.11.4
       tslib: 2.4.0
@@ -516,7 +528,7 @@ packages:
     dependencies:
       '@angular/common': 14.2.12_eate4fi4sziegvmuy7mn7envlm
       '@angular/core': 14.2.12_rxjs@7.4.0+zone.js@0.11.4
-      '@angular/platform-browser': 14.2.12_yt6vhfaqrvibeodb6jj2rnj7lm
+      '@angular/platform-browser': 14.2.12_dax2jypo47bpgiczdvqsh7iq24
       rxjs: 7.4.0
       tslib: 2.4.0
     dev: false
@@ -6392,15 +6404,15 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
 
-  /ngx-panzoom/13.0.0_yt6vhfaqrvibeodb6jj2rnj7lm:
-    resolution: {integrity: sha512-sDsARF6YUTjJpshi+exdvRRnS+gfITVaA+Zr9HKFCOeAyp4ga5QEC+Rz+BGe7hlkyXwJPkzVNvuddn1XRp9nbg==}
+  /ngx-panzoom/14.0.0_yt6vhfaqrvibeodb6jj2rnj7lm:
+    resolution: {integrity: sha512-yh1uHy/qqKefDghVD4WlnOwAnxVr3OD6vRd79W/9JxoXDqrWBH08ZdSYj6yaulaZ1sLNMAGU9QBEwCCP09ciHw==}
     peerDependencies:
-      '@angular/common': '>=13.0.0 < 14.0.0'
-      '@angular/core': '>=13.0.0 < 14.0.0'
+      '@angular/common': '>=14.0.0 < 15.0.0'
+      '@angular/core': '>=14.0.0 < 15.0.0'
     dependencies:
       '@angular/common': 14.2.12_eate4fi4sziegvmuy7mn7envlm
       '@angular/core': 14.2.12_rxjs@7.4.0+zone.js@0.11.4
-      tslib: 2.3.1
+      tslib: 2.4.0
     dev: false
 
   /nice-napi/1.0.2:
