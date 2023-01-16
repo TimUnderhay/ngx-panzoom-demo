@@ -7,6 +7,9 @@ MIT
 @angular/platform-browser
 MIT
 
+font-awesome
+(OFL-1.1 AND MIT)
+
 ngx-panzoom
 MIT
 
