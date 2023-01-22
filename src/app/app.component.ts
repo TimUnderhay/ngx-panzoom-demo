@@ -1,26 +1,23 @@
-import { Component, OnInit, Renderer2, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { PanZoomConfig, PanZoomAPI, PanZoomModel, PanZoomConfigOptions } from 'ngx-panzoom';
+import { PanZoomConfig, PanZoomAPI, PanZoomModel, PanZoomConfigOptions, Rect } from 'ngx-panzoom';
 import { contentItems } from './contentItems';
 import * as utils from './utils';
-
-interface Point {
-  x: number;
-  y: number;
-}
 
 @Component({
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  styleUrls: [
+    './app.component.scss'
+  ]
 })
-export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
+export class AppComponent implements AfterViewInit, OnDestroy {
 
-  constructor( private el: ElementRef,
-               private renderer: Renderer2,
-               private changeDetector: ChangeDetectorRef ) { }
-
-  @ViewChild('gridElement', { static: true }) private gridElement: ElementRef;
+  constructor(
+    private el: ElementRef,
+    private changeDetector: ChangeDetectorRef
+  ) {}
 
   private panZoomConfigOptions: PanZoomConfigOptions = {
     zoomLevels: 10,
@@ -30,38 +27,31 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     zoomToFitZoomLevelFactor: 0.9,
     dragMouseButton: 'left'
   };
-  panzoomConfig: PanZoomConfig = new PanZoomConfig(this.panZoomConfigOptions);
+  panzoomConfig: PanZoomConfig;
   private panZoomAPI: PanZoomAPI;
   private apiSubscription: Subscription;
   panzoomModel: PanZoomModel;
   private modelChangedSubscription: Subscription;
   contentItems = contentItems;
   canvasWidth = 2400;
-  initialZoomHeight: number = null; // set in resetZoomToFit()
+  initialZoomHeight: number; // set in resetZoomToFit()
   initialZoomWidth = this.canvasWidth;
-  initialised = false;
-  scale = this.getCssScale(this.panzoomConfig.initialZoomLevel);
-  private isMobile = false;
-
-
-
-  ngOnInit(): void {
-    this.renderer.setStyle(this.el.nativeElement.ownerDocument.body, 'background-color', 'black');
-    this.renderer.setStyle(this.el.nativeElement.ownerDocument.body, 'overflow', 'hidden');
-    this.apiSubscription = this.panzoomConfig.api.subscribe( (api: PanZoomAPI) => this.panZoomAPI = api );
-    this.modelChangedSubscription = this.panzoomConfig.modelChanged.subscribe( (model: PanZoomModel) => this.onModelChanged(model) );
-    this.isMobile = this.isMobileDevice();
-    if (this.isMobile) {
-      this.contentItems = this.contentItems.slice(0, 13);
-    }
-  }
+  scale: number;
 
 
 
   ngAfterViewInit(): void {
-    this.resetZoomToFit();
-    this.initialised = true;
+    this.panzoomConfig = this.initPanzoomConfig();
+    this.initialZoomHeight = this.panzoomConfig.initialZoomToFit.height;
+    this.scale = this.getCssScale(this.panzoomConfig.initialZoomLevel)
     this.changeDetector.detectChanges();
+
+    this.apiSubscription = this.panzoomConfig.api.subscribe(
+      (api: PanZoomAPI) => this.panZoomAPI = api
+    );
+    this.modelChangedSubscription = this.panzoomConfig.modelChanged.subscribe(
+      (model: PanZoomModel) => this.onModelChanged(model)
+    );
   }
 
 
@@ -73,8 +63,11 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 
-  private isMobileDevice(): boolean {
-    return (typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1);
+  private initPanzoomConfig(): PanZoomConfig {
+    return {
+      ...new PanZoomConfig(this.panZoomConfigOptions),
+      initialZoomToFit: this.getInitialZoomToFit()
+    };
   }
 
 
@@ -94,17 +87,15 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 
-  resetZoomToFit(): void {
-    let height = this.gridElement.nativeElement.clientHeight;
-    const width = this.gridElement.nativeElement.clientWidth;
-    height = this.canvasWidth * height / width;
-    this.panzoomConfig.initialZoomToFit = {
+  getInitialZoomToFit(): Rect {
+    const width = this.el.nativeElement.clientWidth;
+    const height = this.canvasWidth * this.el.nativeElement.clientHeight / width;
+    return {
       x: 0,
       y: 0,
       width: this.canvasWidth,
       height
     };
-    this.initialZoomHeight = height;
   }
 
 

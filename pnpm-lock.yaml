@@ -40,7 +40,7 @@ specifiers:
   karma-coverage-istanbul-reporter: ~3.0.2
   karma-jasmine: ~4.0.0
   karma-jasmine-html-reporter: ^1.5.0
-  ngx-panzoom: ^15.0.0
+  ngx-panzoom: file:ngx-panzoom-15.0.1.tgz
   primeicons: ^6.0.1
   primeng: ^15.0.1
   protractor: ~7.0.0
@@ -60,7 +60,7 @@ dependencies:
   '@angular/router': 15.1.0_2j5rlffxtgor2lg4nqzq4atey4
   core-js: 3.18.2
   font-awesome: 4.7.0
-  ngx-panzoom: 15.0.0_uqqi3gwqbwkizcyszoilo5fotm
+  ngx-panzoom: file:ngx-panzoom-15.0.1.tgz_uqqi3gwqbwkizcyszoilo5fotm
   primeng: 15.0.1_eb7n5d26uewagdngrg5bi4mu6u
   rxjs: 7.5.7
   screenfull: 6.0.0
@@ -6422,17 +6422,6 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
 
-  /ngx-panzoom/15.0.0_uqqi3gwqbwkizcyszoilo5fotm:
-    resolution: {integrity: sha512-EjlXBkACbn5fIC217mVyapgrZrJpSDK5zHUyGv1cjemoj9/yNwLjSvTXxcKbROmKaNJg2SJ6uHxG5jubqPcy6Q==}
-    peerDependencies:
-      '@angular/common': '>=15.0.0 < 16.0.0'
-      '@angular/core': '>=15.0.0 < 16.0.0'
-    dependencies:
-      '@angular/common': 15.1.0_aagesspd2v74l3fghrnm7zkpie
-      '@angular/core': 15.1.0_rxjs@7.5.7+zone.js@0.11.4
-      tslib: 2.4.1
-    dev: false
-
   /nice-napi/1.0.2:
     resolution: {integrity: sha512-px/KnJAJZf5RuBGcfD+Sp2pAKq0ytz8j+1NehvgIGFkvtvFrDM3T8E4x/JJODXK9WZow8RRGrbA9QQ3hs+pDhA==}
     os: ['!win32']
@@ -8790,3 +8779,17 @@ packages:
     resolution: {integrity: sha512-DDh2Ab+A/B+9mJyajPjHFPWfYU1H+pdun4wnnk0OcQTNjem1XQSZ2CDW+rfZEUDjv5M19SBqAkjZi0x5wuB5Qw==}
     dependencies:
       tslib: 2.3.1
+
+  file:ngx-panzoom-15.0.1.tgz_uqqi3gwqbwkizcyszoilo5fotm:
+    resolution: {integrity: sha512-WPXxDn+0aFMayJZWAyRI5A0i0wzd23d+xF118GhH9jk+wzWKtOOzJ+8u54uUf5dOMAbqz4UaPO4lEX/E/RsGdA==, tarball: file:ngx-panzoom-15.0.1.tgz}
+    id: file:ngx-panzoom-15.0.1.tgz
+    name: ngx-panzoom
+    version: 15.0.1
+    peerDependencies:
+      '@angular/common': '>=15.0.0 < 16.0.0'
+      '@angular/core': '>=15.0.0 < 16.0.0'
+    dependencies:
+      '@angular/common': 15.1.0_aagesspd2v74l3fghrnm7zkpie
+      '@angular/core': 15.1.0_rxjs@7.5.7+zone.js@0.11.4
+      tslib: 2.4.1
+    dev: false

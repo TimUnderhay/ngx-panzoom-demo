@@ -1,4 +1,4 @@
-export function deepCopy(o: object) {
+export const deepCopy = (o: object) => {
   // taken from https://jsperf.com/deep-copy-vs-json-stringify-json-parse/5
   let newO, i;
 
@@ -24,4 +24,8 @@ export function deepCopy(o: object) {
     }
   }
   return newO;
+}
+
+export const isMobileDevice = (): boolean => {
+  return (typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1);
 }
