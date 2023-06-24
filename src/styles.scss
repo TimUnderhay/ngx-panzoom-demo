@@ -59,6 +59,7 @@ tile {
   flex-direction: column;
   justify-content: space-between;
   padding: .5rem;
+  pointer-events: none;
   
   .button-box {
     // position: absolute;
@@ -72,6 +73,7 @@ tile {
     border-radius: .6rem;
     row-gap: 1rem;
     padding: .5rem;
+    pointer-events: all;
     
     .button-row {
       display: flex;

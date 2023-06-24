@@ -1,5 +1,5 @@
 <pan-zoom
-  *ngIf="panzoomConfig && initialZoomHeight"
+  *ngIf="initialised"
   [config]="panzoomConfig">
 
   <div
@@ -176,7 +176,7 @@
           style="position: absolute; left: 80px; top: 20px"
           class="control-icon fa-arrow-right"
           (click)="onPanRight100Clicked()"
-          [pTooltip]="'Pan left by 100 pixels:\n\npanZoomAPI.panDelta( { x: 100, y: 0 } )'"
+          [pTooltip]="'Pan right by 100 pixels:\n\npanZoomAPI.panDelta( { x: 100, y: 0 } )'"
           [showDelay]="500">
         </div>
 
@@ -184,7 +184,7 @@
           style="position: absolute; left: 40px; top: 40px"
           (click)="onPanDown100Clicked()"
           class="control-icon fa-arrow-down"
-          [pTooltip]="'Pan up by 100 pixels:\n\npanZoomAPI.panDelta( { x: 0, y: 100 } )'"
+          [pTooltip]="'Pan down by 100 pixels:\n\npanZoomAPI.panDelta( { x: 0, y: 100 } )'"
           [showDelay]="500">
         </div>
 

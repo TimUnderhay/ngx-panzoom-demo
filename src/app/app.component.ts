@@ -37,12 +37,12 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   initialZoomHeight: number; // set in resetZoomToFit()
   initialZoomWidth = this.canvasWidth;
   scale: number;
-
+  initialised = false
 
 
   ngAfterViewInit(): void {
     this.panzoomConfig = this.initPanzoomConfig();
-    this.initialZoomHeight = this.panzoomConfig.initialZoomToFit.height;
+    this.initialZoomHeight = this.panzoomConfig.initialZoomToFit?.height;
     this.scale = this.getCssScale(this.panzoomConfig.initialZoomLevel)
     this.changeDetector.detectChanges();
 
@@ -52,6 +52,8 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     this.modelChangedSubscription = this.panzoomConfig.modelChanged.subscribe(
       (model: PanZoomModel) => this.onModelChanged(model)
     );
+    this.initialised = !!this.panzoomConfig // && initialZoomHeight
+    this.changeDetector.detectChanges()
   }
 
 
@@ -66,7 +68,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   private initPanzoomConfig(): PanZoomConfig {
     return {
       ...new PanZoomConfig(this.panZoomConfigOptions),
-      initialZoomToFit: this.getInitialZoomToFit()
+      // initialZoomToFit: this.getInitialZoomToFit()
     };
   }
 
