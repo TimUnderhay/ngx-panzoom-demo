@@ -30,8 +30,8 @@ dependencies:
     specifier: ^4.7.0
     version: 4.7.0
   ngx-panzoom:
-    specifier: file:ngx-panzoom-16.0.0.tgz
-    version: file:ngx-panzoom-16.0.0.tgz(@angular/common@16.1.2)(@angular/core@16.1.2)
+    specifier: ^16.0.0
+    version: 16.0.0(@angular/common@16.1.2)(@angular/core@16.1.2)
   primeng:
     specifier: ^16.0.2
     version: 16.0.2(@angular/common@16.1.2)(@angular/core@16.1.2)(@angular/forms@16.1.2)(rxjs@7.8.1)(zone.js@0.13.1)
@@ -6642,6 +6642,17 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
 
+  /ngx-panzoom@16.0.0(@angular/common@16.1.2)(@angular/core@16.1.2):
+    resolution: {integrity: sha512-bIMjkt2VrtoQkW+ZNoKaj2Po/yunjy+7E/6rFX3i/Q7b3P6dZWobREbqw9r9kfsbdk3oMv/FH7e7Aqhiouztnw==}
+    peerDependencies:
+      '@angular/common': '>=16.0.0 < 17.0.0'
+      '@angular/core': '>=16.0.0 < 17.0.0'
+    dependencies:
+      '@angular/common': 16.1.2(@angular/core@16.1.2)(rxjs@7.8.1)
+      '@angular/core': 16.1.2(rxjs@7.8.1)(zone.js@0.13.1)
+      tslib: 2.5.3
+    dev: false
+
   /nice-napi@1.0.2:
     resolution: {integrity: sha512-px/KnJAJZf5RuBGcfD+Sp2pAKq0ytz8j+1NehvgIGFkvtvFrDM3T8E4x/JJODXK9WZow8RRGrbA9QQ3hs+pDhA==}
     os: ['!win32']
@@ -8951,17 +8962,3 @@ packages:
     resolution: {integrity: sha512-+bIeDAFEBYuXRuU3qGQvzdPap+N1zjM4KkBAiiQuVVCrHrhjDuY6VkUhNa5+U27+9w0q3fbKiMCbpJ0XzMmSWA==}
     dependencies:
       tslib: 2.5.3
-
-  file:ngx-panzoom-16.0.0.tgz(@angular/common@16.1.2)(@angular/core@16.1.2):
-    resolution: {integrity: sha512-azvdgPafTzmUOQAgiTeSLqW/R2Y7AHXIhyC8heBB+/oVJeUIEFsjyXS62zygA6sB7tB9HpGOlzSOp0CNfccc+w==, tarball: file:ngx-panzoom-16.0.0.tgz}
-    id: file:ngx-panzoom-16.0.0.tgz
-    name: ngx-panzoom
-    version: 16.0.0
-    peerDependencies:
-      '@angular/common': '>=16.0.0 < 17.0.0'
-      '@angular/core': '>=16.0.0 < 17.0.0'
-    dependencies:
-      '@angular/common': 16.1.2(@angular/core@16.1.2)(rxjs@7.8.1)
-      '@angular/core': 16.1.2(rxjs@7.8.1)(zone.js@0.13.1)
-      tslib: 2.5.3
-    dev: false
