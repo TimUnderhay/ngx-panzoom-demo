@@ -1,16 +1,23 @@
 import { Component, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { PanZoomConfig, PanZoomAPI, PanZoomModel, PanZoomConfigOptions, Rect } from 'ngx-panzoom';
+import { PanZoomConfig, PanZoomAPI, PanZoomModel, PanZoomConfigOptions, Rect, PanZoomComponent } from 'ngx-panzoom';
 import { contentItems } from './contentItems';
 import * as utils from './utils';
+import { RounderPipe } from './rounder.pipe';
+import { TooltipModule } from 'primeng/tooltip';
+import { ToggleFullscreenDirective } from './fullscreen.directive';
+import { TileComponent } from './tile';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-root',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './app.component.html',
-  styleUrls: [
-    './app.component.scss'
-  ]
+    selector: 'app-root',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './app.component.html',
+    styleUrls: [
+        './app.component.scss'
+    ],
+    standalone: true,
+    imports: [NgIf, PanZoomComponent, NgFor, TileComponent, ToggleFullscreenDirective, TooltipModule, RounderPipe, TooltipModule]
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
 

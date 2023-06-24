@@ -2,9 +2,9 @@ import { Component, Input } from '@angular/core';
 import { Content } from './content';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'tile',
-  template: `
+    // tslint:disable-next-line:component-selector
+    selector: 'tile',
+    template: `
 <div class="thumbnail-container">
 
   <div>
@@ -13,7 +13,7 @@ import { Content } from './content';
 
 </div>
   `,
-  styles: [`
+    styles: [`
     .thumbnail-container {
       position:relative;
       margin: 2px 10px 0 0;
@@ -30,7 +30,8 @@ import { Content } from './content';
       max-height: 110px;
       vertical-align: middle;
     }
-  `]
+  `],
+    standalone: true
 })
 
 export class TileComponent {

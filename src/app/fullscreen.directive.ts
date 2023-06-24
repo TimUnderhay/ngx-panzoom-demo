@@ -3,8 +3,9 @@ import screenfull from 'screenfull';
 
 
 @Directive({
-  // tslint:disable-next-line:directive-selector
-  selector: '[toggleFullscreen]'
+    // tslint:disable-next-line:directive-selector
+    selector: '[toggleFullscreen]',
+    standalone: true
 })
 export class ToggleFullscreenDirective {
 
