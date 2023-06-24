@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "importHelpers": true,
-    "module": "es2020",
+    "module": "es2022",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -15,7 +15,7 @@
       "node_modules/@types"
     ],
     "lib": [
-      "es2018",
+      "es2022",
       "dom"
     ],
     "useDefineForClassFields": false
