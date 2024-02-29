@@ -1,9 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 // @import 'font-awesome/css/font-awesome.min.css';
 @use 'font-awesome/css/font-awesome.min.css';
+@import 'primeflex/primeflex';
 
 html {
   touch-action: none;
+  overflow: hidden;
 }
 
 body,
@@ -44,49 +46,20 @@ fullscreen {
 
 
 
-tile {
-  display: inline-block;
-}
-
-
-
 .controls-container {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: .5rem;
   pointer-events: none;
   
   .button-box {
-    // position: absolute;
-    // top: 20px;
-    // left: 10px;
-    // padding: .8em;
-    flex-grow: 0;
-    flex-shrink: 1;
     background-color: rgba(0, 0, 0, 0.8);
     font-size: .75rem;
     border-radius: .6rem;
     row-gap: 1rem;
-    padding: .5rem;
     pointer-events: all;
     
-    .button-row {
-      display: flex;
-      // justify-content: space-between;
-      flex-grow: 0;
-      flex-shrink: 1;
-      gap: .25rem;
-    
-      // &.button-row-justify-left {
-      //   justify-content: left;
-      // }
-    }
-
     .d-pad-row {
       display: flex;
       justify-content: center;
@@ -107,9 +80,6 @@ tile {
   }
 
   .panzoom-model-box {
-    // position: absolute;
-    // bottom: 1em;
-    // left: 1em;
     padding: 1.5em;
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
@@ -171,10 +141,14 @@ tile {
   @extend .clickable;
 }
 
-.rotate45 {
+.rotate-45 {
   transform: rotate(45deg);
 }
 
-.rotate-45 {
+.rotate-45neg {
   transform: rotate(-45deg);
+}
+
+.v-hidden {
+  visibility: hidden;
 }

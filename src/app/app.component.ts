@@ -1,223 +1,141 @@
-import { Component, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { PanZoomConfig, PanZoomAPI, PanZoomModel, PanZoomConfigOptions, Rect, PanZoomComponent } from 'ngx-panzoom';
+import {
+  Component,
+  ElementRef,
+  ChangeDetectionStrategy,
+  viewChild,
+  computed,
+  Signal,
+  signal,
+  NgZone,
+  OnInit,
+  OnDestroy
+} from '@angular/core';
+import {
+  PanZoomComponent,
+  PanZoomModel
+} from 'ngx-panzoom';
 import { contentItems } from './contentItems';
-import * as utils from './utils';
 import { RounderPipe } from './rounder.pipe';
 import { TooltipModule } from 'primeng/tooltip';
 import { ToggleFullscreenDirective } from './fullscreen.directive';
-import { TileComponent } from './tile';
+import { TileComponent } from './tile/tile.component';
 import { NgIf, NgFor } from '@angular/common';
+import { calcInitialZoomToFit } from './utils';
 
 @Component({
     selector: 'app-root',
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './app.component.html',
-    styleUrls: [
-        './app.component.scss'
-    ],
+    styleUrls: ['./app.component.scss'],
     standalone: true,
     imports: [NgIf, PanZoomComponent, NgFor, TileComponent, ToggleFullscreenDirective, TooltipModule, RounderPipe, TooltipModule]
 })
-export class AppComponent implements AfterViewInit, OnDestroy {
-
+export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private el: ElementRef,
-    private changeDetector: ChangeDetectorRef
+    private zone: NgZone
   ) {}
 
-  private panZoomConfigOptions: PanZoomConfigOptions = {
-    zoomLevels: 10,
-    scalePerZoomLevel: 2.0,
-    zoomStepDuration: 0.2,
-    freeMouseWheelFactor: 0.01,
-    zoomToFitZoomLevelFactor: 0.9,
-    dragMouseButton: 'left'
-  };
-  panzoomConfig: PanZoomConfig;
-  private panZoomAPI: PanZoomAPI;
-  private apiSubscription: Subscription;
-  panzoomModel: PanZoomModel;
-  private modelChangedSubscription: Subscription;
-  contentItems = contentItems;
-  canvasWidth = 2400;
-  initialZoomHeight: number; // set in resetZoomToFit()
-  initialZoomWidth = this.canvasWidth;
-  scale: number;
-  initialised = false
+  readonly PanZoom = viewChild.required(PanZoomComponent);
+  readonly contentItems = contentItems;
+  readonly panzoomModel = signal<PanZoomModel>(undefined!);
+  readonly scale: Signal<number> = computed(
+    () => {
+      const model = this.panzoomModel();
+      return model
+        ? this.getCssScale(model.zoomLevel)
+        : NaN;
+    }
+  );
+  readonly scalePerZoomLevel = signal(2.0);
+  readonly neutralZoomLevel = signal(2);
+  readonly canvasWidth = signal(2400);
+  readonly initialZoomToFit = computed(
+    // Dynamically sticks to current dimensions by virtue of resizeObserver
+    () => calcInitialZoomToFit(
+      this.elClientWidth(),
+      this.elClientHeight(),
+      this.canvasWidth()
+    )
+  );
+  readonly elClientWidth = signal<number>(this.el.nativeElement.clientWidth);
+  readonly elClientHeight = signal<number>(this.el.nativeElement.clientHeight);
+  readonly observer = new ResizeObserver(
+    ([entry]) => this.onElResize(entry)
+  );
 
-
-  ngAfterViewInit(): void {
-    this.panzoomConfig = this.initPanzoomConfig();
-    this.initialZoomHeight = this.panzoomConfig.initialZoomToFit?.height;
-    this.scale = this.getCssScale(this.panzoomConfig.initialZoomLevel)
-    this.changeDetector.detectChanges();
-
-    this.apiSubscription = this.panzoomConfig.api.subscribe(
-      (api: PanZoomAPI) => this.panZoomAPI = api
-    );
-    this.modelChangedSubscription = this.panzoomConfig.modelChanged.subscribe(
-      (model: PanZoomModel) => this.onModelChanged(model)
-    );
-    this.initialised = !!this.panzoomConfig // && initialZoomHeight
-    this.changeDetector.detectChanges()
+  ngOnInit(): void {
+    this.observer.observe(this.el.nativeElement);
   }
-
 
 
   ngOnDestroy(): void {
-    this.modelChangedSubscription.unsubscribe();
-    this.apiSubscription.unsubscribe();
+    this.observer.disconnect();
   }
 
 
-
-  private initPanzoomConfig(): PanZoomConfig {
-    return {
-      ...new PanZoomConfig(this.panZoomConfigOptions),
-      // initialZoomToFit: this.getInitialZoomToFit()
-    };
+  private onElResize(entry: ResizeObserverEntry): void {
+    const {
+      inlineSize: width,
+      blockSize: height
+    } = entry.borderBoxSize[0];
+    this.zone.run(
+      () => {
+        this.elClientWidth.set(
+          Math.round(width)
+        );
+        this.elClientHeight.set(
+          Math.round(height)
+        );
+      }
+    );
   }
 
 
-
-  onModelChanged(model: PanZoomModel): void {
-    this.panzoomModel = utils.deepCopy(model);
-    this.scale = this.getCssScale(this.panzoomModel.zoomLevel);
-    this.changeDetector.markForCheck();
-    this.changeDetector.detectChanges();
+  private getCssScale(zoomLevel: number): number {
+    return Math.pow(
+      this.scalePerZoomLevel(),
+      zoomLevel - this.neutralZoomLevel()
+    );
   }
-
-
-
-  private getCssScale(zoomLevel: any): number {
-    return Math.pow(this.panzoomConfig.scalePerZoomLevel, zoomLevel - this.panzoomConfig.neutralZoomLevel);
-  }
-
-
-
-  getInitialZoomToFit(): Rect {
-    const width = this.el.nativeElement.clientWidth;
-    const height = this.canvasWidth * this.el.nativeElement.clientHeight / width;
-    return {
-      x: 0,
-      y: 0,
-      width: this.canvasWidth,
-      height
-    };
-  }
-
-
-
-  onZoomInClicked(): void {
-    this.panZoomAPI.zoomIn('viewCenter');
-  }
-
-
-
-  onZoomOutClicked(): void {
-    this.panZoomAPI.zoomOut('viewCenter');
-  }
-
-
-
-  onResetViewClicked(): void {
-    this.panZoomAPI.resetView();
-  }
-
 
 
   onPanLeft100Clicked(): void {
-    this.panZoomAPI.panDelta( { x: -100, y: 0 } );
+    this.PanZoom().panDelta( { x: -100, y: 0 } );
   }
-
 
 
   onPanRight100Clicked(): void {
-    this.panZoomAPI.panDelta( { x: 100, y: 0 } );
+    this.PanZoom().panDelta( { x: 100, y: 0 } );
   }
-
 
 
   onPanUp100Clicked(): void {
-    this.panZoomAPI.panDelta( { x: 0, y: -100 } );
+    this.PanZoom().panDelta( { x: 0, y: -100 } );
   }
-
 
 
   onPanDown100Clicked(): void {
-    this.panZoomAPI.panDelta( { x: 0, y: 100 } );
+    this.PanZoom().panDelta( { x: 0, y: 100 } );
   }
-
 
 
   onPanLeftPercentClicked(): void {
-    this.panZoomAPI.panDeltaPercent( { x: -20, y: 0 } );
+    this.PanZoom().panDeltaPercent( { x: -20, y: 0 } );
   }
-
 
 
   onPanRightPercentClicked(): void {
-    this.panZoomAPI.panDeltaPercent( { x: 20, y: 0 } );
+    this.PanZoom().panDeltaPercent( { x: 20, y: 0 } );
   }
-
 
 
   onPanUpPercentClicked(): void {
-    this.panZoomAPI.panDeltaPercent( { x: 0, y: -20 } );
+    this.PanZoom().panDeltaPercent( { x: 0, y: -20 } );
   }
-
 
 
   onPanDownPercentClicked(): void {
-    this.panZoomAPI.panDeltaPercent( { x: 0, y: 20 } );
+    this.PanZoom().panDeltaPercent( { x: 0, y: 20 } );
   }
-
-
-
-  onPanToPointClicked(): void {
-    this.panZoomAPI.panToPoint( { x: 2400, y: 4270 } );
-  }
-
-
-  onCenterContentClicked(): void {
-    this.panZoomAPI.centerContent();
-  }
-
-
-
-  onCenterXClicked(): void {
-    this.panZoomAPI.centerX();
-  }
-
-
-
-  onCenterYClicked(): void {
-    this.panZoomAPI.centerY();
-  }
-
-
-
-  onCenterTopLeftClicked(): void {
-    this.panZoomAPI.centerTopLeft();
-  }
-
-
-
-  onCenterBottomLeftClicked(): void {
-    this.panZoomAPI.centerBottomLeft();
-  }
-
-
-
-  onCenterTopRightClicked(): void {
-    this.panZoomAPI.centerTopRight();
-  }
-
-
-
-  onCenterBottomRightClicked(): void {
-    this.panZoomAPI.centerBottomRight();
-  }
-
 }

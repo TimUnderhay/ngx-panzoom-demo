@@ -1,4 +1,4 @@
-import { Content } from './content';
+import { Content } from './types';
 
 export const contentItems: Content[] = [
   { id: 2, contentFile: '88-107-0_1.London.jpg', thumbnail: 'thumbnail_88-107-0_1.London.jpg'},

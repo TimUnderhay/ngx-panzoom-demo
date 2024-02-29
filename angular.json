@@ -3,7 +3,6 @@
   "version": 1,
   "newProjectRoot": "projects",
   "cli": {
-    "packageManager": "pnpm",
     "schematicCollections": [
       "@angular-eslint/schematics"
     ],
@@ -83,19 +82,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngx-panzoom-demo:build",
-            "host": "0.0.0.0"
+            "host": "0.0.0.0",
+            "buildTarget": "ngx-panzoom-demo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ngx-panzoom-demo:build:production"
+              "buildTarget": "ngx-panzoom-demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ngx-panzoom-demo:build"
+            "buildTarget": "ngx-panzoom-demo:build"
           }
         },
         "deploy": {
